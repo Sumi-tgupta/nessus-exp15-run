@@ -1,0 +1,40 @@
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Upgrading global.db to version 10.11.0
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Upgrading global.db to version 10.11.2
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Upgrading global.db to version 10.12.0
+[16/Nov/2026:13:03:41 +0000] [info, ip_tracking] [globaldb] AssetTrackingIPs table initialized in license database
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Upgrading global.db to version 10.12.6
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Upgrade complete.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Auto-configuration: attempting to get AWS cloud instance metadata (this will fail if not on AWS).
+[16/Nov/2026:13:03:41 +0000] [warn, aws] [globaldb] Failed to get user data: Local api request failed: response status code 400 
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] Waiting for Nessus to be ready
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] No sensor profile configuration to apply.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] cleanup is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] scanner-stats is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] scanner-stats-cleanup is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] event-cleanup is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] feed-status-check is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] agent-activity-cleanup is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] telemetry-service is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] plugin-healthcheck-service is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] triggered-scan-service is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] agent-mover is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] docker-detect is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] was-docker is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-sync is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-scan-sync is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-directive-sync is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-profile-sync is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-scan-uploader is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-updater is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-activity-uploader is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-status-check is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] node-scan-check is starting.
+[16/Nov/2026:13:03:41 +0000] [info] [globaldb] backup-service is starting.
+[16/Nov/2026:13:03:43 +0000] [info] [msmanager] Disabling msmanager - not a remote scanner
+[16/Nov/2026:13:03:43 +0000] [info] [cleanup] Start processing scan history, effective retention days = 0
+[16/Nov/2026:13:03:43 +0000] [info] [cleanup] Processing orphaned scan results, removing any that are older than 30 days
+[16/Nov/2026:13:03:43 +0000] [info] [cleanup] Processing packet capture archives, removing any that are older than 30 days
+[16/Nov/2026:13:03:43 +0000] [info] [cleanup] End processing packet capture archives, deleted 0 files
+[16/Nov/2026:13:03:50 +0000] [error] [http] [REQ_ID=mug/1794834230:1:43, request_id=mug/1794834230:1:43] Error sending file: /opt/nessus/var/nessus/www/tenable-glyphicons.png fd: 0
+[16/Nov/2026:13:04:52 +0000] [error] [http] [username=nessus_ms_agent, request_id=mug/1794834291:1:58] Nessus Plugins: Did not get a 200 OK response from the server: HTTP/1.1 400 Bad Request
+[16/Nov/2026:13:04:52 +0000] [error] [http] [username=nessus_ms_agent, request_id=mug/1794834291:1:58] Failed to register plugin feed

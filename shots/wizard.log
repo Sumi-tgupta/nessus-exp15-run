@@ -1,0 +1,25 @@
+wait 0 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 1 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 2 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 3 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 4 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 5 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 6 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 7 'Nessus\nInitializing\nPlease wait while Nessus is initializing'
+wait 8 'Nessus\nWelcome to Nessus\nYou can click Settings to configure'
+step 0 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, plugin feed, and encr'
+shot step00
+step 1 'Nessus\nWelcome to Nessus\nChoose how you want to deploy Nessus. Select an option to get started.\nSet '
+shot step01
+step 2 'Nessus\nGet an activation code\nTo register for a free Nessus Essentials activation code, enter your i'
+shot step02
+step 3 'Nessus\nRegister Nessus\nEnter your activation code.\nActivation Code\nBack\nContinue\n© 2026 Tenable™, In'
+shot step03
+step 4 'Nessus\nLicense Information\nActivation Code: XXXX-XXXX-XXXX-XXXX-XXXX\nContinue\n© 2026 Tenable™, Inc.'
+shot step04
+step 5 'Nessus\nCreate a user account\nCreate a Nessus administrator user account. Use this username and passw'
+shot step05
+shot create_admin_account
+shot initializing_plugins
+plugins 0 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 1 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
