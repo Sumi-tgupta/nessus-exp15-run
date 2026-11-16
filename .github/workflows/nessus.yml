@@ -40,15 +40,35 @@ jobs:
             curl -sk https://localhost:8834/server/status && break
             sleep 5
           done
-      - name: Setup wizard (activate Essentials, create admin)
-        run: python scripts/wizard.py
-      - name: Create and run scan, capture results
-        run: python scripts/drive_ui.py
-      - name: Commit screenshots
-        if: always()
+      - name: Start progress pusher (every 3 min)
         run: |
           git config user.name github-actions
           git config user.email actions@github.com
+          cat > /tmp/pusher.sh <<'EOS'
+          #!/bin/bash
+          cd "$GITHUB_WORKSPACE"
+          while true; do
+            sleep 180
+            curl -sk https://localhost:8834/server/status > shots/status.txt 2>&1
+            date -u >> shots/status.txt
+            sudo tail -n 40 /opt/nessus/var/nessus/logs/backend.log 2>/dev/null | sed "s/$NESSUS_CODE/XXXX/g" > shots/nessus_backend_tail.log
+            sudo tail -n 40 /opt/nessus/var/nessus/logs/nessusd.messages 2>/dev/null | sed "s/$NESSUS_CODE/XXXX/g" > shots/nessusd_messages_tail.log
+            git add shots
+            git commit -qm progress || true
+            git pull -q --rebase || true
+            git push -q || true
+          done
+          EOS
+          chmod +x /tmp/pusher.sh
+          setsid nohup /tmp/pusher.sh > /tmp/pusher.out 2>&1 &
+          sleep 1
+      - name: Setup wizard (activate Essentials, create admin)
+        run: python -u scripts/wizard.py 2>&1 | tee shots/wizard.log
+      - name: Create and run scan, capture results
+        run: python -u scripts/drive_ui.py 2>&1 | tee shots/scan.log
+      - name: Commit screenshots
+        if: always()
+        run: |
           git add shots
           git commit -m 'Add screenshots' || exit 0
           git pull --rebase
