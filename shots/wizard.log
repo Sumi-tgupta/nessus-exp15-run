@@ -258,3 +258,7 @@ plugins 233 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the 
 plugins 234 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
 plugins 235 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
 plugins 236 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 237 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 238 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 239 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+shot nessus_ready_login
