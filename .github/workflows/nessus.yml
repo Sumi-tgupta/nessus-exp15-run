@@ -1,0 +1,55 @@
+name: Nessus Exp15
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  scan:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    env:
+      DISPLAY: ':99'
+      NESSUS_USER: labadmin
+      NESSUS_PASS: 'Lab15-Nessus-Pass'
+      NESSUS_CODE: ${{ secrets.NESSUS_CODE }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Display stack (Xvfb, fluxbox, x11vnc)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb x11vnc fluxbox imagemagick jq
+          pip install -q playwright
+          playwright install --with-deps chromium
+          mkdir -p shots
+          (Xvfb :99 -screen 0 1366x768x24 &)
+          sleep 3
+          (fluxbox >/dev/null 2>&1 &)
+          sleep 2
+          x11vnc -display :99 -forever -nopw -localhost -rfbport 5900 -bg -o /tmp/x11vnc.log
+          sleep 2
+          import -window root shots/00_xvfb_desktop.png
+          ss -ltn | grep 5900 | tee shots/vnc_listening.txt
+      - name: Install Nessus
+        run: |
+          curl -fsSL -A 'Mozilla/5.0' https://www.tenable.com/downloads/api/v2/pages/nessus -o page.json
+          FILE=$(grep -o 'Nessus-[0-9.]*-ubuntu[0-9]*_amd64[.]deb' page.json | sort -uV | tail -1)
+          echo "Installer: $FILE"
+          curl -fL -A 'Mozilla/5.0' -o nessus.deb "https://www.tenable.com/downloads/api/v2/pages/nessus/files/$FILE"
+          sudo dpkg -i nessus.deb
+          sudo systemctl start nessusd || sudo /opt/nessus/sbin/nessusd -D
+          for i in $(seq 1 40); do
+            curl -sk https://localhost:8834/server/status && break
+            sleep 5
+          done
+      - name: Setup wizard (activate Essentials, create admin)
+        run: python scripts/wizard.py
+      - name: Create and run scan, capture results
+        run: python scripts/drive_ui.py
+      - name: Commit screenshots
+        if: always()
+        run: |
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add shots
+          git commit -m 'Add screenshots' || exit 0
+          git pull --rebase
+          git push
