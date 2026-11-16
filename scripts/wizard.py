@@ -1,4 +1,4 @@
-import os, sys, time, traceback, ssl, urllib.request
+import os, sys, time, traceback
 from playwright.sync_api import sync_playwright
 
 BASE = 'https://localhost:8834'
@@ -20,13 +20,6 @@ def shot(page, name):
     page.screenshot(path='shots/w%02d_%s.png' % (count[0], name))
     print('shot', name, flush=True)
 
-def status():
-    ctx = ssl._create_unverified_context()
-    try:
-        return urllib.request.urlopen(BASE + '/server/status', context=ctx, timeout=10).read().decode()
-    except Exception as e:
-        return 'ERR %s' % e
-
 def body(page):
     return page.inner_text('body')
 
@@ -44,7 +37,8 @@ def run(page):
         if i % 4 == 3:
             page.reload()
     code_done = False
-    for step in range(25):
+    submitted = False
+    for step in range(30):
         t = body(page)
         print('step', step, repr(t[:100].replace(CODE, MASK)), flush=True)
         shot(page, 'step%02d' % step)
@@ -56,8 +50,8 @@ def run(page):
             cont(page)
         elif 'License Information' in t:
             cont(page)
-        elif 'Skip' in t:
-            page.get_by_text('Skip').first.click()
+        elif 'Get an activation code' in t:
+            page.get_by_role('button', name='Skip', exact=True).click()
         elif page.locator('input[type=password]:visible').count() > 0:
             page.locator('input[type=text]:visible, input:not([type]):visible').first.fill(U)
             pw = page.locator('input[type=password]:visible')
@@ -65,23 +59,26 @@ def run(page):
                 pw.nth(k).fill(P)
             shot(page, 'create_admin_account')
             page.get_by_role('button', name='Submit').first.click()
+            submitted = True
             break
         elif page.locator('input:visible').count() > 0 and not code_done:
             page.locator('input:visible').first.fill(CODE)
             cont(page)
             code_done = True
         page.wait_for_timeout(10000)
-    page.wait_for_timeout(8000)
+    if not submitted:
+        raise RuntimeError('wizard did not reach account creation')
+    page.wait_for_timeout(10000)
     shot(page, 'initializing_plugins')
     for i in range(240):
-        s = status()
-        print(i, s, flush=True)
-        if 'ready' in s:
+        page.goto(BASE + '/')
+        page.wait_for_timeout(8000)
+        t = body(page)
+        print('plugins', i, repr(t[:80]), flush=True)
+        if 'Sign In' in t or 'Sign in' in t:
             break
-        time.sleep(15)
-    page.goto(BASE + '/')
-    page.wait_for_timeout(8000)
-    shot(page, 'nessus_ready')
+        time.sleep(12)
+    shot(page, 'nessus_ready_login')
 
 with sync_playwright() as p:
     b = p.chromium.launch(headless=False, args=['--ignore-certificate-errors', '--no-sandbox', '--window-size=1366,768'])
