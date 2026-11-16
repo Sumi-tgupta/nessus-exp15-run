@@ -23,3 +23,12 @@ shot create_admin_account
 shot initializing_plugins
 plugins 0 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
 plugins 1 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 2 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 3 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 4 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 5 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 6 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 7 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 8 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 9 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
+plugins 10 'Nessus\nWelcome to Nessus\nYou can click Settings to configure the Nessus proxy, p'
